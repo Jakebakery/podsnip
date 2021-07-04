@@ -8,7 +8,6 @@ const UploadSnippet = () => {
     const [caption, setCaption] = useState("");
     const [selectedFile, setSelectedFile] = useState();
     const [isFilePicked, setIsFilePicked] = useState(false);
-    var snippetUrl = "";
 
 
     const uuidv4 = () => {
@@ -41,9 +40,14 @@ const UploadSnippet = () => {
                             caption: caption,
                             podcastName: podcastName,
                             podcastLink: podcastLink,
-                        })
+                        }).then(() => {
+                        }, (error) => {
+                            if (error) {
+                                console.log(error);
+                            }
+                          })
                     });
-                        
+
                 });
             });
 
