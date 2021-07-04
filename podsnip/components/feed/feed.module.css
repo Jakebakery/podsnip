@@ -1,0 +1,25 @@
+.artwork {
+  height: 300px;
+  width: 100%;
+  border-radius: 5px;
+  background-color: red;
+  align-self: center;
+  margin-bottom: 25px;
+}
+
+.artwork, .audioPlayer {
+  align-self: center;
+}
+
+.container {
+    min-height: 100vh;
+    padding: 0 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #0070f3;
+  }
+
+.snippetContent {
+  text-align: left;
+}
