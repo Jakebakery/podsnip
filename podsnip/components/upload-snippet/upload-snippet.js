@@ -39,14 +39,8 @@ const UploadSnippet = () => {
                             caption: caption,
                             podcastName: podcastName,
                             podcastLink: podcastLink,
-                        }).then(() => {
-                        }, (error) => {
-                            if (error) {
-                                console.log(error);
-                            }
-                          })
+                        })
                     });
-
                 });
             });
 
