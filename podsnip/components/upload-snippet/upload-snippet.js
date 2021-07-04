@@ -28,29 +28,29 @@ const UploadSnippet = () => {
             }
             storage.ref(`snippets/${uuid}`).put(selectedFile, meta).then((snapshot) => {
                 snapshot.ref.getDownloadURL().then((downloadURL) => {
-                    
-                    fetch('https://localhost:3000/snippet', {
-                        method: 'POST',
-                        headers: {
-                            Accept: 'application/json',
-                            'Content-Type': 'application/json'
+                    React.useEffect(() => {
+                        fetch('/snippet', {
+                            method: 'POST',
+                            headers: {
+                                Accept: 'application/json',
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                url: downloadURL,
+                                caption: caption,
+                                podcastName: podcastName,
+                                podcastLink: podcastLink,
+                            })
+                        }).then(res => {
+                            console.log(res);
                         },
-                        body: JSON.stringify({
-                            url: downloadURL,
-                            caption: caption,
-                            podcastName: podcastName,
-                            podcastLink: podcastLink,
-                        })
-                    }).then(res => {
-                        console.log(res);
-                    },
-                    // Note: it's important to handle errors here 
-                    // instead of a catch() block so that we don't swallow
-                    // exceptions from actual bugs in components
-                    err => {
-                        console.log(err);
-                    });;
-
+                        // Note: it's important to handle errors here 
+                        // instead of a catch() block so that we don't swallow
+                        // exceptions from actual bugs in components
+                        err => {
+                            console.log(err);
+                        });;
+                    })
                 });
             });
 
