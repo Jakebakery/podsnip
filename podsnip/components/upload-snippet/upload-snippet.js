@@ -40,17 +40,19 @@ const UploadSnippet = () => {
                             caption: caption,
                             podcastName: podcastName,
                             podcastLink: podcastLink,
-                        }).then(() => {
-                        }, (error) => {
-                            if (error) {
-                                console.log(error);
-                            }
-                          })
-                    });
+                        })
+                    }).then(res => {
+                        console.log(res);
+                    },
+                    // Note: it's important to handle errors here 
+                    // instead of a catch() block so that we don't swallow
+                    // exceptions from actual bugs in components
+                    err => {
+                        console.log(err);
+                    });;
 
                 });
             });
-
 
             alert(`Submitting form ${podcastLink}`);
         }
