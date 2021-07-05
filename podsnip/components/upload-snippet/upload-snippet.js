@@ -28,11 +28,10 @@ const UploadSnippet = () => {
             }
             storage.ref(`snippets/${uuid}`).put(selectedFile, meta).then((snapshot) => {
                 snapshot.ref.getDownloadURL().then((downloadURL) => {
-                    fetch('http://localhost:3000/snippet', {
+                    fetch('http://localhost:8080/snippet', {
                         method: 'POST',
                         headers: {
-                            Accept: 'application/json',
-                            'Content-Type': 'application/json'
+                            'Content-Type': "application/x-www-form-urlencoded",
                         },
                         body: JSON.stringify({
                             url: downloadURL,

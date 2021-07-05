@@ -48,13 +48,12 @@ func initializeDb() {
 }
 
 func createSnippet(w http.ResponseWriter, r *http.Request){
-	fmt.Println("------")
-	w.Header().Set("Context-Type", "application/x-www-form-urlencoded")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Access-Control-Allow-Methods", "POST")
-	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type,Access-Control-Allow-Headers, Authorization, X-Requested-With")
 	var snippet Snippet
 	err := json.NewDecoder(r.Body).Decode(&snippet)
+	fmt.Println(r.Body)
 	if err != nil {
         http.Error(w, err.Error(), http.StatusBadRequest)
         return
@@ -65,6 +64,7 @@ func createSnippet(w http.ResponseWriter, r *http.Request){
 		return
 	}
 	json.NewEncoder(w).Encode(res)
+	w.WriteHeader(http.StatusOK)
 }
 
 func main() {
