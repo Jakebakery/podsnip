@@ -1,6 +1,7 @@
 import styles from './upload-snippet.module.css';
 import { useState } from 'react';
 import { storage } from '../../Firebase';
+import { ToastContainer, toast } from 'react-toast';
 
 const UploadSnippet = () => {
     const [podcastLink, setPodcastLink] = useState("");
@@ -28,7 +29,8 @@ const UploadSnippet = () => {
             }
             storage.ref(`snippets/${uuid}`).put(selectedFile, meta).then((snapshot) => {
                 snapshot.ref.getDownloadURL().then((downloadURL) => {
-                    fetch('http://localhost:8080/snippet', {
+                    toast.success("Yeay! MP3 uploaded");
+                    fetch('http://localhost:3000/snippet', {
                         method: 'POST',
                         headers: {
                             'Content-Type': "application/x-www-form-urlencoded",
@@ -39,6 +41,9 @@ const UploadSnippet = () => {
                             podcastName: podcastName,
                             podcastLink: podcastLink,
                         })
+                    }).then((res) => res.json())
+                    .then(() => {
+                      toast.success("Yeay! New data is here.");
                     });
                 });
             });
@@ -90,6 +95,7 @@ const UploadSnippet = () => {
                     </label>
                     <input type="submit" value="Submit" />
                 </form>
+                <ToastContainer delay={3000} />
             </main>
         </div>
     );
